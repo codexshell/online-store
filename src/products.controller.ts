@@ -1,61 +1,39 @@
-import { Controller, Get, Render, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Render,
+  Param,
+  ParseIntPipe,
+  Res,
+} from '@nestjs/common';
+import { ProductService } from './models/product.service';
 
 @Controller('/products')
 export class ProductsController {
-  static products = [
-    {
-      id: '1',
-      name: 'TV',
-      description: 'Best tv',
-      image: 'game.png',
-      price: '1000',
-    },
-    {
-      id: '2',
-      name: 'iPhone',
-      description: 'Best iPhone',
-      image: 'safe.png',
-      price: '999',
-    },
-    {
-      id: '3',
-      name: 'Chromecast',
-      description: 'Best Chromecast',
-      image: 'submarine.png',
-      price: '30',
-    },
-    {
-      id: '4',
-      name: 'Glasses',
-      description: 'Best Glasses',
-      image: 'game.png',
-      price: '100',
-    },
-  ];
+  constructor(private readonly productService: ProductService) {}
 
   @Get('/')
   @Render('products/index')
-  index() {
+  async index() {
     const viewData = [];
     viewData['title'] = 'Products - Online Store';
     viewData['subtitle'] = 'List of products';
-    viewData['products'] = ProductsController.products;
+    viewData['products'] = await this.productService.findAll();
     return {
       viewData,
     };
   }
 
   @Get('/:id')
-  @Render('products/show')
-  show(@Param('id', ParseIntPipe) id: number) {
-    const product = ProductsController.products[id - 1];
+  async show(@Param('id', ParseIntPipe) id: number, @Res() response) {
+    const product = await this.productService.findOne(id);
+    if (!product) return response.redirect('/products');
+
     const viewData = [];
     viewData['title'] = product.name + ' - Online Store';
     viewData['subtitle'] = product.name + ' - Product Information';
     viewData['product'] = product;
 
-    return {
-      viewData,
-    };
+    return response.render('products/show', { viewData });
   }
 }

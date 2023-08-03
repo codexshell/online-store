@@ -15,10 +15,10 @@ export class ProductService {
     return this.productsRepository.find();
   }
 
-  findOne(id: string): Promise<Product> {
+  findOne(id: number): Promise<Product> {
     return this.productsRepository.findOne({
       where: {
-        id: +id,
+        id,
       },
     });
   }
