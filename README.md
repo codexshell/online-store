@@ -35,8 +35,12 @@ $ npm install
 ## Running the app
 
 ```bash
-# MySQL server
-docker compose up -d
+# MySQL server and phpMyAdmin web interface for interacting with the database (phpMyAdmin => localhost:8080)
+$ docker compose up -d
+
+- Visit localhost:8080, authenticate with credentials
+ `Username: root` and `Password: password`.
+- Create a database `online_store`. This should prevent a runtime error when the application is started.
 
 # development
 $ npm run start
