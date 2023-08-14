@@ -6,11 +6,11 @@ import {
   ParseIntPipe,
   Res,
 } from '@nestjs/common';
-import { ProductService } from './models/product.service';
+import { ProductsService } from './models/product.service';
 
 @Controller('/products')
 export class ProductsController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productsService: ProductsService) {}
 
   @Get('/')
   @Render('products/index')
@@ -18,7 +18,7 @@ export class ProductsController {
     const viewData = [];
     viewData['title'] = 'Products - Online Store';
     viewData['subtitle'] = 'List of products';
-    viewData['products'] = await this.productService.findAll();
+    viewData['products'] = await this.productsService.findAll();
     return {
       viewData,
     };
@@ -26,7 +26,7 @@ export class ProductsController {
 
   @Get('/:id')
   async show(@Param('id', ParseIntPipe) id: number, @Res() response) {
-    const product = await this.productService.findOne(id);
+    const product = await this.productsService.findOne(id);
     if (!product) return response.redirect('/products');
 
     const viewData = [];

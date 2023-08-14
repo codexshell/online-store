@@ -1,0 +1,29 @@
+{{#> admin}}
+{{#*inline "content"}}
+<div class="card">
+  <div class="card-header">Manage Products</div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="col">ID</th>
+          <th class="col">Name</th>
+          <th class="col">Edit</th>
+          <th class="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each viewData.products}}
+        <tr>
+          <td>{{getId}}</td>
+          <td>{{getName}}</td>
+          <td>Edit</td>
+          <td>Delete</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{/inline}}
+{{/admin}}

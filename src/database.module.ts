@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ProductService } from './models/product.service';
+import { ProductsService } from './models/product.service';
 import { Product } from './models/product.entity';
 
+@Global()
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -18,7 +19,7 @@ import { Product } from './models/product.entity';
     }),
     TypeOrmModule.forFeature([Product]),
   ],
-  providers: [ProductService],
-  exports: [ProductService],
+  providers: [ProductsService],
+  exports: [ProductsService],
 })
 export class DatabaseModule {}
