@@ -22,4 +22,8 @@ export class ProductsService {
       },
     });
   }
+
+  createOrUpdate(product: Product): Promise<Product> {
+    return this.productsRepository.save(product);
+  }
 }
