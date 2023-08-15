@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ProductsService } from './models/product.service';
 import { Product } from './models/product.entity';
+import { User } from './models/user.entity';
+import { UsersService } from './models/users.service';
 
 @Global()
 @Module({
@@ -17,9 +19,9 @@ import { Product } from './models/product.entity';
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([Product, User]),
   ],
-  providers: [ProductsService],
-  exports: [ProductsService],
+  providers: [ProductsService, UsersService],
+  exports: [ProductsService, UsersService],
 })
 export class DatabaseModule {}
