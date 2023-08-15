@@ -6,7 +6,7 @@ import { UsersService } from 'src/models/users.service';
 
 @Controller('/auth')
 export class AuthController {
-  constructor(@InjectRepository(User) private usersService: UsersService) {}
+  constructor(private usersService: UsersService) {}
 
   @Get('/register')
   @Render('/auth/register')
