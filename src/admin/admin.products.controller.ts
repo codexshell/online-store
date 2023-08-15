@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Redirect,
   Render,
@@ -38,5 +39,11 @@ export class AdminProductsController {
     newProduct.setPrice(body.price);
     newProduct.setImage(file.filename);
     await this.productsService.createOrUpdate(newProduct);
+  }
+
+  @Post('/:id')
+  @Redirect('/admin/products')
+  remove(@Param('id') id: string) {
+    return this.productsService.remove(id);
   }
 }
