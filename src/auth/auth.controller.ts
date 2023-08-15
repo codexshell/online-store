@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Post, Redirect, Render } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/models/user.entity';
 
 import { UsersService } from 'src/models/users.service';
@@ -9,7 +8,7 @@ export class AuthController {
   constructor(private usersService: UsersService) {}
 
   @Get('/register')
-  @Render('/auth/register')
+  @Render('auth/register')
   register() {
     const viewData = [];
     viewData['title'] = 'User Register - Online Store';
