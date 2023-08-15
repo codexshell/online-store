@@ -52,6 +52,10 @@ export class User {
     return this.role;
   }
 
+  setRole(role: string) {
+    this.role = role;
+  }
+
   getBalance(): number {
     return this.balance;
   }
