@@ -30,7 +30,7 @@ async function bootstrap() {
   app.use(function (req, res, next) {
     res.locals.session = req.session;
     if (req.session.flashErrors) {
-      res.local.flashErrors = req.session.flashErrors;
+      res.locals.flashErrors = req.session.flashErrors;
       req.session.flashErrors = null;
     }
     next();
