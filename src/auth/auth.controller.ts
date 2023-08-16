@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 
 import { User } from 'src/models/user.entity';
-
 import { UsersService } from 'src/models/users.service';
 
 @Controller('/auth')
@@ -30,14 +29,22 @@ export class AuthController {
 
   @Post('/store')
   @Redirect('/')
-  async store(@Body() body) {
+  async store(@Body() body, @Req() req) {
     const newUser = new User();
     newUser.setName(body.name);
     newUser.setEmail(body.email);
     newUser.setPassword(body.password);
     newUser.setRole('client');
     newUser.setBalance(1000);
-    await this.usersService.createOrUpdate(newUser);
+    const user = await this.usersService.createOrUpdate(newUser);
+
+    // expose the required user information to the session object in the request body
+    req.session.user = {
+      id: user.getId(),
+      name: user.getName(),
+      role: user.getRole(),
+    };
+    // redirect to the default page - done implicitly using the `Redirect` decorator
   }
 
   @Get('/login')
@@ -66,7 +73,7 @@ export class AuthController {
       name: user.getName(),
       role: user.getRole(),
     };
-    // then redirect to the landing page
+    // then redirect to the default page
     return res.redirect('/');
   }
 
