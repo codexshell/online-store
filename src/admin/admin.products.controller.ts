@@ -99,6 +99,7 @@ export class AdminProductsController {
       'imageUpdate',
     ];
     const errors: string[] = ProductValidator.validate(body, file, toValidate);
+
     if (errors.length > 0) {
       if (file) {
         fs.unlinkSync(file.path);

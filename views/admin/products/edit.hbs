@@ -3,6 +3,11 @@
 <div class="card mb-4">
   <div class="card-header">Edit Product</div>
   <div class="card-body">
+    {{#if flashErrors}}
+    {{#each flashErrors}}
+    <p class="alert alert-danger">{{this}}</p>
+    {{/each}}
+    {{/if}}
     {{#with viewData.product}}
     <form method="post" action="/admin/products/{{getId}}/update" enctype="multipart/form-data">
       <div class="row">
