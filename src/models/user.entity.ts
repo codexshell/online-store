@@ -36,6 +36,10 @@ export class User {
     this.name = name;
   }
 
+  getEmail() {
+    return this.email;
+  }
+
   setEmail(email: string) {
     this.email = email;
   }
