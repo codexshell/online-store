@@ -11,6 +11,7 @@ import {
 
 import { User } from 'src/models/user.entity';
 import { UsersService } from 'src/models/users.service';
+import { UserValidator } from 'src/validators/user.validator';
 
 @Controller('/auth')
 export class AuthController {
@@ -28,23 +29,33 @@ export class AuthController {
   }
 
   @Post('/store')
-  @Redirect('/')
-  async store(@Body() body, @Req() req) {
-    const newUser = new User();
-    newUser.setName(body.name);
-    newUser.setEmail(body.email);
-    newUser.setPassword(body.password);
-    newUser.setRole('client');
-    newUser.setBalance(1000);
-    const user = await this.usersService.createOrUpdate(newUser);
-
-    // expose the required user information to the session object in the request body
-    req.session.user = {
-      id: user.getId(),
-      name: user.getName(),
-      role: user.getRole(),
-    };
-    // redirect to the default page - done implicitly using the `Redirect` decorator
+  async store(@Body() body, @Req() req, @Res() res) {
+    // validate the request body
+    const toValidate: string[] = ['name', 'email', 'password'];
+    const errors: string[] = UserValidator.validate(body, toValidate);
+    if (errors.length > 0) {
+      // update the session attribute on the request body
+      req.session.flashErrors = errors;
+      // redirect to the same page
+      res.redirect('/auth/store');
+    } else {
+      // create a new user and store in database
+      const newUser = new User();
+      newUser.setName(body.name);
+      newUser.setEmail(body.email);
+      newUser.setPassword(body.password);
+      newUser.setRole('client');
+      newUser.setBalance(1000);
+      const user = await this.usersService.createOrUpdate(newUser);
+      // update the session attribute on the request object with user information
+      req.session.user = {
+        id: user.getId(),
+        name: user.getName(),
+        role: user.getRole(),
+      };
+      // redirect to the default page
+      res.redirect('/');
+    }
   }
 
   @Get('/login')
