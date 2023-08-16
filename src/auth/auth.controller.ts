@@ -34,10 +34,10 @@ export class AuthController {
     const toValidate: string[] = ['name', 'email', 'password'];
     const errors: string[] = UserValidator.validate(body, toValidate);
     if (errors.length > 0) {
-      // update the session attribute on the request body
+      // update the session attribute on the request body with the errors
       req.session.flashErrors = errors;
-      // redirect to the same page
-      res.redirect('/auth/store');
+      // redirect to the user registration page
+      return res.redirect('/auth/register');
     } else {
       // create a new user and store in database
       const newUser = new User();
@@ -54,7 +54,7 @@ export class AuthController {
         role: user.getRole(),
       };
       // redirect to the default page
-      res.redirect('/');
+      return res.redirect('/');
     }
   }
 
