@@ -26,11 +26,11 @@ async function bootstrap() {
       saveUninitialized: false,
     }),
   );
+  // middleware used to enable access to the session values from the hbs views
   app.use(function (req, res, next) {
     res.locals.session = req.session;
-    const flashErrors: string[] = req.session.flashErrors;
-    if (flashErrors) {
-      res.local.flashErrors = flashErrors;
+    if (req.session.flashErrors) {
+      res.local.flashErrors = req.session.flashErrors;
       req.session.flashErrors = null;
     }
     next();
