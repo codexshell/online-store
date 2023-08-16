@@ -30,6 +30,7 @@ export class UsersService {
     // if passwords do not match, exit logging to the console `invalid username/password`
     if (!isMatch) {
       console.log('Passwords do not match!');
+      return;
     }
     // if passwords match log to the console `login successful`
     console.log('Login successful');
