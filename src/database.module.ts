@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ProductsService } from './models/product.service';
+import { ProductsService } from './models/products.service';
 import { Product } from './models/product.entity';
 import { User } from './models/user.entity';
 import { UsersService } from './models/users.service';

@@ -6,7 +6,7 @@ import {
   ParseIntPipe,
   Res,
 } from '@nestjs/common';
-import { ProductsService } from './models/product.service';
+import { ProductsService } from './models/products.service';
 
 @Controller('/products')
 export class ProductsController {

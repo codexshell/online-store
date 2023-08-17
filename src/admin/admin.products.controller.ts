@@ -15,7 +15,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { Product } from 'src/models/product.entity';
-import { ProductsService } from 'src/models/product.service';
+import { ProductsService } from 'src/models/products.service';
 import { ProductValidator } from 'src/validators/product.validator';
 import * as fs from 'fs';
 
