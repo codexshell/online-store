@@ -35,6 +35,9 @@ export class CartController {
     viewData['subtitle'] = 'Shopping Cart';
     viewData['total'] = total;
     viewData['productsInCart'] = productsInCart;
+    viewData['path'] = {
+      cart: 'active',
+    };
 
     return {
       viewData,

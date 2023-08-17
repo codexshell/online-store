@@ -19,6 +19,10 @@ export class ProductsController {
     viewData['title'] = 'Products - Online Store';
     viewData['subtitle'] = 'List of products';
     viewData['products'] = await this.productsService.findAll();
+    viewData['path'] = {
+      products: 'active',
+    };
+
     return {
       viewData,
     };

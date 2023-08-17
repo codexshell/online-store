@@ -23,6 +23,10 @@ export class AuthController {
     const viewData = [];
     viewData['title'] = 'User Register - Online Store';
     viewData['subtitle'] = 'User Register';
+    viewData['path'] = {
+      register: 'active',
+    };
+
     return {
       viewData,
     };
@@ -64,6 +68,10 @@ export class AuthController {
     const viewData = [];
     viewData['title'] = 'User Login - Online Store';
     viewData['subtitle'] = 'User Login';
+    viewData['path'] = {
+      login: 'active',
+    };
+
     return {
       viewData,
     };

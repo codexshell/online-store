@@ -8,6 +8,9 @@ export class AppController {
     const viewData: Record<string, any> = [];
 
     viewData['title'] = 'Home Page - Online Store';
+    viewData['path'] = {
+      home: 'active',
+    };
 
     return {
       viewData,
@@ -23,6 +26,9 @@ export class AppController {
     viewData['subtitle'] = 'About us';
     viewData['description'] = 'This is an about page';
     viewData['author'] = 'Developed by: Eric';
+    viewData['path'] = {
+      about: 'active',
+    };
 
     return {
       viewData,
