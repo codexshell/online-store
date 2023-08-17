@@ -1,12 +1,11 @@
 {{#> app}}
 {{#*inline 'content'}}
-<div class="card">
+<div class="card overflow-auto">
   <div class="card-header">Products in Cart</div>
   <div class="card-body">
     <table class="table table-bordered table-striped text-center">
       <thead>
         <tr>
-          <th scope="col">ID</th>
           <th scope="col">Name</th>
           <th scope="col">Price</th>
           <th scope="col">Quantity</th>
@@ -15,10 +14,49 @@
       <tbody>
         {{#each viewData.productsInCart}}
         <tr>
-          <td>{{getId}}</td>
-          <td>{{getName}}</td>
+          <td><a href="/products/{{id}}" title="Click to view product information">{{getName}}</a></td>
           <td>{{getPrice}}</td>
-          <td>{{lookup ../session.products id}}</td>
+          <td>
+            <button class="btn bg-warning px-4 cursor-pointer" title="Click  to change quantity" data-bs-toggle="modal"
+              data-bs-target="#changeQuantityModal">
+              {{lookup ../session.products id}}
+            </button>
+
+            <!-- Change Quantity Modal -->
+            <div class="modal fade" id="changeQuantityModal" tabindex="-1" aria-labelledby="changeQuantityModal"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <form method="post" action="cart/set/{{getId}}">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">{{getName}}</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row justify-content-center">
+                        <div class="col-auto">
+                          <div class="input-group col-auto">
+                            <div class="input-group-text">Quantity</div>
+                            <input type="number" name="quantity" min="1" max="10" class="form-control quantity-input"
+                              value="{{lookup ../session.products id}}">
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <a href="/cart/delete/{{getId}}" class="btn btn-danger" title="Remove item">
+                            <i class="bi-trash"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </td>
         </tr>
         {{/each}}
       </tbody>

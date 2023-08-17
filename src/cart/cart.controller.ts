@@ -55,7 +55,7 @@ export class CartController {
     }
     // create or update the relevant field
     if (!productsInSession[id]) {
-      productsInSession[id] = 1;
+      productsInSession[id] = +body.quantity;
     } else {
       productsInSession[id] += +body.quantity;
     }
@@ -64,7 +64,23 @@ export class CartController {
 
   @Get('/delete')
   @Redirect('/cart')
-  delete(@Req() req) {
+  deleteAll(@Req() req) {
     req.session.products = null;
+  }
+
+  @Post('/set/:id')
+  @Redirect('/cart')
+  set(@Param('id', ParseIntPipe) id: number, @Req() req) {
+    const productsInSession = req.session.products;
+    productsInSession[id] = +req.body.quantity;
+    req.session.products = productsInSession;
+  }
+
+  @Get('/delete/:id')
+  @Redirect('/cart')
+  deleteOne(@Param('id', ParseIntPipe) id: number, @Req() req) {
+    const productsInSession = req.session.products;
+    delete productsInSession[id];
+    req.session.products = productsInSession;
   }
 }
