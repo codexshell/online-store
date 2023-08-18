@@ -36,4 +36,12 @@ export class UsersService {
     console.log('Login successful!');
     return user;
   }
+
+  findOne(id: number): Promise<User> {
+    return this.usersRepository.findOneBy({ id });
+  }
+
+  updateBalance(id: number, balance: number) {
+    return this.usersRepository.update(id, { balance });
+  }
 }
