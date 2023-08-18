@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -25,8 +24,7 @@ export class Order {
   @ManyToOne(() => User, (user) => user.orders)
   user: User;
 
-  @OneToMany(() => Item, (item) => item.order)
-  @JoinTable()
+  @OneToMany(() => Item, (item) => item.order, { cascade: ['insert'] })
   items: Item[];
 
   getId(): number {
