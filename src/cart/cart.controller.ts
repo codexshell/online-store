@@ -39,6 +39,19 @@ export class CartController {
       total = Product.sumPricesByQuantities(productsInCart, productsInSession);
     }
 
+    let userBalance;
+    let formattedUserBalance;
+    if (req.session.user) {
+      userBalance = (
+        await this.usersService.findOne(+req.session.user.id)
+      ).getBalance();
+      formattedUserBalance = Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+      }).format(userBalance);
+    }
+
     const viewData = [];
     viewData['title'] = 'Cart - Online Store';
     viewData['subtitle'] = 'Shopping Cart';
@@ -47,6 +60,12 @@ export class CartController {
     viewData['path'] = {
       cart: 'active',
     };
+    viewData['balanceInfo'] = {
+      show: req.session.user ? true : false,
+      balance: formattedUserBalance,
+      enough: userBalance > total ? true : false,
+    };
+    viewData['btnStatus'] = total > userBalance ? 'danger' : 'success';
 
     return {
       viewData,
@@ -115,6 +134,14 @@ export class CartController {
         item.setProduct(product);
         items.push(item);
         total += product.getPrice() * quantity;
+      }
+
+      // if total > user balance,
+      // redirect to cart
+      const userBalance = user.getBalance();
+      if (total > userBalance) {
+        req.session.flashErrors = ['Not enough balance!'];
+        return res.redirect('/cart');
       }
 
       const newOrder = new Order();

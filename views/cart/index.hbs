@@ -56,21 +56,56 @@
                 </div>
               </div>
             </div>
+            {{!-- Change Quantity Modal --}}
           </td>
         </tr>
         {{/each}}
       </tbody>
     </table>
     <div class="row">
-      <div class="text-end">
+      <div class="col-auto">
+        {{#if viewData.balanceInfo.show}}
+        <button class="btn btn-outline-{{viewData.btnStatus}}">Balance: ({{viewData.balanceInfo.balance}})</button>
+        {{/if}}
+      </div>
+      <div class="text-end col">
         <a class="btn btn-outline-secondary mb-2"><b>Total to pay: </b>{{viewData.total}}</a>
         {{#if viewData.productsInCart}}
+        {{#if viewData.balanceInfo.enough}}
         <a href="/cart/purchase" class="btn bg-primary text-white mb-2">Purchase</a>
+        {{else}}
+        <button type="button" data-bs-toggle="modal" data-bs-target="#notEnoughMoneyModal"
+          class="btn bg-primary text-white mb-2">Purchase</button>
+        {{/if}}
         <a href="/cart/delete" class="btn btn-danger mb-2">Remove all products from Cart</a>
         {{/if}}
       </div>
     </div>
   </div>
 </div>
+{{!-- Not enough money modal --}}
+<!-- Modal -->
+<div class="modal fade" id="notEnoughMoneyModal" tabindex="-1" aria-labelledby="notEnoughMoneyModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Not enough balance</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          Dear Customer,
+        </div>
+        <div>
+          We are sorry to inform you that you do not have the sufficient funds to complete this purchase
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{!-- Not enough money modal --}}
 {{/inline}}
 {{/app}}
