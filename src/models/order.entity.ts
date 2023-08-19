@@ -39,6 +39,10 @@ export class Order {
     return this.total;
   }
 
+  setTotal(total: number) {
+    this.total = total;
+  }
+
   getDate() {
     return this.date;
   }
@@ -49,6 +53,10 @@ export class Order {
 
   getUser() {
     return this.user;
+  }
+
+  setUser(user: User) {
+    this.user = user;
   }
 
   getItems(): Item[] {
