@@ -30,8 +30,7 @@ export class UsersService {
     if (!isMatch) {
       return 'Invalid credentials!';
     }
-    // if passwords match log to the console `login successful`
-    console.log('Login successful!');
+    // if passwords match return the user
     return user;
   }
 

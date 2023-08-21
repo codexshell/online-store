@@ -104,7 +104,13 @@ export class AuthController {
         name: result.getName(),
         role: result.getRole(),
       };
-    // then redirect to the default page
+    // if user was in a redirect process, proceed with redirection,
+    // else redirect to default page
+    if (req.session.redirect) {
+      const redirect = req.session.redirect;
+      delete req.session.redirect;
+      return res.redirect(redirect);
+    }
     return res.redirect('/');
   }
 

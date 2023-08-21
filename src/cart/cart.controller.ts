@@ -115,6 +115,10 @@ export class CartController {
   @Get('/purchase')
   async purchase(@Req() req, @Res() res) {
     if (!req.session.user) {
+      // add a redirect property to the session object,
+      // the property will instruct the login route,
+      // to redirect the user back to the cart
+      req.session.redirect = '/cart';
       return res.redirect('/auth/login');
     } else if (!req.session.products) {
       return res.redirect('/cart');
