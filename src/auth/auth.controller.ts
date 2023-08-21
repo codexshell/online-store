@@ -97,7 +97,7 @@ export class AuthController {
   }
 
   @Get('/logout')
-  @Redirect('/')
+  @Redirect('/auth/login')
   logout(@Req() req) {
     // invalidate the session by clearing user information
     req.session.user = null;
