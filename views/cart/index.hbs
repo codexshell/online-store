@@ -72,11 +72,15 @@
       <div class="text-end col">
         <a class="btn btn-outline-secondary mb-2"><b>Total to pay: </b>{{viewData.total}}</a>
         {{#if viewData.productsInCart}}
+        {{#if session.user}}
         {{#if viewData.balanceInfo.enough}}
         <a href="/cart/purchase" class="btn bg-primary text-white mb-2">Purchase</a>
         {{else}}
         <button type="button" data-bs-toggle="modal" data-bs-target="#notEnoughMoneyModal"
           class="btn bg-primary text-white mb-2">Purchase</button>
+        {{/if}}
+        {{else}}
+        <a href="/cart/purchase" class="btn bg-primary text-white mb-2">Purchase</a>
         {{/if}}
         <a href="/cart/delete" class="btn btn-danger mb-2">Remove all products from Cart</a>
         {{/if}}
