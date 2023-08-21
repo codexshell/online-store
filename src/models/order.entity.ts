@@ -6,6 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import * as moment from 'moment';
 
 import { Item } from './item.entity';
 import { User } from './user.entity';
@@ -44,7 +45,9 @@ export class Order {
   }
 
   getDate() {
-    return this.date;
+    const date = this.date;
+    const formattedDate = moment(date).format('MMMM Do YYYY, h:mm a');
+    return formattedDate;
   }
 
   setDate(date: Date) {

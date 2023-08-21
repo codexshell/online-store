@@ -14,7 +14,8 @@
       <tbody>
         {{#each viewData.productsInCart}}
         <tr>
-          <td><a href="/products/{{id}}" title="Click to view product information">{{getName}}</a></td>
+          <td><a href="/products/{{id}}" title="Click to view product information"
+              class="link-success link-underline-opacity-25 link-underline-opacity-100-hover">{{getName}}</a></td>
           <td>{{getPrice}}</td>
           <td>
             <button class="btn bg-warning px-4 cursor-pointer" title="Click  to change quantity" data-bs-toggle="modal"
