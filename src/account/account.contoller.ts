@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Req } from '@nestjs/common';
+import { Controller, Get, Render, Req, Res } from '@nestjs/common';
 
 import { OrdersService } from 'src/models/orders.service';
 
@@ -8,7 +8,10 @@ export class AccountController {
 
   @Get('/orders')
   @Render('account/orders')
-  async orders(@Req() req) {
+  async orders(@Req() req, @Res() res) {
+    // if user is not logged in redirect default page
+    if (!req.session.user) return res.redirect('/');
+
     const viewData = [];
     viewData['title'] = 'My Orders - Online Store';
     viewData['subtitle'] = 'My Orders';
