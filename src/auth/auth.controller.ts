@@ -32,7 +32,7 @@ export class AuthController {
     };
   }
 
-  @Post('/store')
+  @Post('/register')
   async store(@Body() body, @Req() req, @Res() res) {
     // validate the request body
     const toValidate: string[] = ['name', 'email', 'password'];
@@ -43,6 +43,14 @@ export class AuthController {
       // redirect to the user registration page
       return res.redirect('/auth/register');
     } else {
+      // check if user already exits
+      const response = await this.usersService.findOneByEmail(req.body.email);
+      if (response instanceof User) {
+        req.session.flashErrors = [
+          'Email already taken! Please provide an alternative email or login',
+        ];
+        return res.redirect('/auth/register');
+      }
       // create a new user and store in database
       const newUser = new User();
       newUser.setName(body.name);

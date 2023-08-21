@@ -43,7 +43,7 @@ export class CartController {
     let formattedUserBalance;
     if (req.session.user) {
       userBalance = (
-        await this.usersService.findOne(+req.session.user.id)
+        await this.usersService.findOneById(+req.session.user.id)
       ).getBalance();
       formattedUserBalance = Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -119,7 +119,7 @@ export class CartController {
     } else if (!req.session.products) {
       return res.redirect('/cart');
     } else {
-      const user = await this.usersService.findOne(req.session.user.id);
+      const user = await this.usersService.findOneById(req.session.user.id);
       const productsInSession = req.session.products;
       const productsInCart: Product[] = await this.productsService.findByIds(
         Object.keys(productsInSession),

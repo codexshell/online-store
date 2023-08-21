@@ -35,8 +35,12 @@ export class UsersService {
     return user;
   }
 
-  findOne(id: number): Promise<User> {
+  findOneById(id: number): Promise<User> {
     return this.usersRepository.findOneBy({ id });
+  }
+
+  findOneByEmail(email: string): Promise<User> {
+    return this.usersRepository.findOneBy({ email });
   }
 
   updateBalance(id: number, balance: number) {
