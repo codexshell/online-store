@@ -25,7 +25,16 @@
                 <div class="navbar-nav ms-auto">
                     <a href="/" class="nav-link {{viewData.path.home}}">Home</a>
                     <a href="/products" class="nav-link {{viewData.path.products}}">Products</a>
-                    <a href="/cart" class="nav-link {{viewData.path.cart}}">Cart</a>
+                    <a href="/cart" class="nav-link {{viewData.path.cart}}"><i style="font-size: 1.25rem"
+                            class="bi-cart3 position-relative">
+                            {{#if session.products}}
+                            <span style="font-size: .5em"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                                {{session.productsLength}}
+                                <span class="visually-hidden">number of items in cart</span>
+                            </span>
+                            {{/if}}
+                        </i></a>
                     <a href="/about" class="nav-link {{viewData.path.about}}">About</a>
                     <div class="vr bg-white mx-2 d-none d-lg-block"></div>
                     {{#if session.user}}

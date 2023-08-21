@@ -19,12 +19,12 @@
           <td>{{getPrice}}</td>
           <td>
             <button class="btn bg-warning px-4 cursor-pointer" title="Click  to change quantity" data-bs-toggle="modal"
-              data-bs-target="#changeQuantityModal">
+              data-bs-target="#changeQuantityModal{{getId}}">
               {{lookup ../session.products id}}
             </button>
 
             <!-- Change Quantity Modal -->
-            <div class="modal fade" id="changeQuantityModal" tabindex="-1" aria-labelledby="changeQuantityModal"
+            <div class="modal fade" id="changeQuantityModal{{getId}}" tabindex="-1" aria-labelledby="changeQuantityModal"
               aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">

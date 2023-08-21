@@ -76,18 +76,28 @@ export class CartController {
   @Redirect('/cart')
   add(@Param('id', ParseIntPipe) id: number, @Body() body, @Req() req) {
     let productsInSession = req.session.products;
-    // check if productsInSession reference is defined,
-    // if not define it,
+    let productsInSessionLength = req.session.productsLength;
+
+    // check if references are defined,
+    // if not define
     if (!productsInSession) {
       productsInSession = {};
+      productsInSessionLength = 0;
     }
-    // create or update the relevant field
+    // create or update the relevant fields
     if (!productsInSession[id]) {
       productsInSession[id] = +body.quantity;
     } else {
       productsInSession[id] += +body.quantity;
     }
+    const itemIds = Object.keys(productsInSession);
+    productsInSessionLength = itemIds.reduce(
+      (acc, cur) => acc + productsInSession[cur],
+      0,
+    );
+
     req.session.products = productsInSession;
+    req.session.productsLength = productsInSessionLength;
   }
 
   @Get('/delete')
@@ -100,8 +110,17 @@ export class CartController {
   @Redirect('/cart')
   set(@Param('id', ParseIntPipe) id: number, @Req() req) {
     const productsInSession = req.session.products;
+    let productsInSessionLength = req.session.productsLength;
+
     productsInSession[id] = +req.body.quantity;
+    const itemIds = Object.keys(productsInSession);
+    productsInSessionLength = itemIds.reduce(
+      (acc, cur) => acc + productsInSession[cur],
+      0,
+    );
+
     req.session.products = productsInSession;
+    req.session.productsLength = productsInSessionLength;
   }
 
   @Get('/delete/:id')
