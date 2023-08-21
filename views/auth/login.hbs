@@ -6,7 +6,12 @@
       <div class="card">
         <div class="card-header">Login</div>
         <div class="card-body">
-          <form action="/auth/connect" method="post">
+          {{#if flashErrors}}
+          {{#each flashErrors}}
+          <p class="alert alert-danger">{{this}}</p>
+          {{/each}}
+          {{/if}}
+          <form action="/auth/login" method="post">
             <div class="form-group row pb-2">
               <label for="email" class="col-form-label col-md-4 text-md-right">Email</label>
               <div class="col-md-6">

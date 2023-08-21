@@ -77,21 +77,25 @@ export class AuthController {
     };
   }
 
-  @Post('/connect')
+  @Post('/login')
   async connect(@Body() body, @Req() req, @Res() res) {
     // extract request body
     // extract email and password fields
     const { email, password } = body;
     // pass them to the login userService method
-    const user = await this.usersService.login(email, password);
-    // if user does not exist, exit, redirecting back to login page
-    if (!user) return res.redirect('/auth/login');
+    const result = await this.usersService.login(email, password);
+    // if user does not exist, exit, redirecting back to login page showing errors
+    if (!(result instanceof User)) {
+      req.session.flashErrors = [result];
+      return res.redirect('/auth/login');
+    }
     // if user exits, populate session attribute of request with user information,
-    req.session.user = {
-      id: user.getId(),
-      name: user.getName(),
-      role: user.getRole(),
-    };
+    if (result instanceof User)
+      req.session.user = {
+        id: result.getId(),
+        name: result.getName(),
+        role: result.getRole(),
+      };
     // then redirect to the default page
     return res.redirect('/');
   }

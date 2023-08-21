@@ -12,27 +12,29 @@
 </head>
 
 <body class="h-100 d-flex flex-column">
-  <div class="row g-0 flex-grow-1">
-    {{!-- sidebar --}}
-    <div class="p-3 col fixed text-white bg-dark">
-      <a href="/admin" class="text-white text-decoration-none">
-        <span class="fs-4">Admin Panel</span>
-      </a>
-      <hr />
-      <ul class="nav flex-column">
-        <li><a href="/admin" class="nav-link text-white">- Admin - Home</a></li>
-        <li><a href="/admin/products" class="nav-link text-white">- Admin - Products</a></li>
-        <li><a href="/" class="mt-2 btn bg-primary text-white">Go back to the home page</a></li>
-      </ul>
-    </div>
-    {{!-- sidebar --}}
-    <div class="col content-grey">
-      <nav class="p-3 shadow text-end">
-        <span class="profile-font">Admin</span>
-        <img src="/img/undraw_profile.svg" alt="" class="img-profile rounded-circle">
-      </nav>
+  <div class="flex-grow-1">
+    <div class="row g-0 h-100">
+      {{!-- sidebar --}}
+      <div class="p-3 fixed text-white bg-dark col-lg-auto">
+        <a href="/admin" class="text-white text-decoration-none">
+          <span class="fs-4">Admin Panel</span>
+        </a>
+        <hr />
+        <ul class="nav flex-column">
+          <li><a href="/admin" class="nav-link text-white">- Admin - Home</a></li>
+          <li><a href="/admin/products" class="nav-link text-white">- Admin - Products</a></li>
+          <li><a href="/" class="mt-2 btn bg-primary text-white">Go back to the home page</a></li>
+        </ul>
+      </div>
+      {{!-- sidebar --}}
+      <div class="content-grey col-lg">
+        <nav class="p-3 shadow text-end">
+          <span class="profile-font">Admin</span>
+          <img src="/img/undraw_profile.svg" alt="" class="img-profile rounded-circle">
+        </nav>
 
-      <div class="g-0 m-5">{{> content}}</div>
+        <div class="g-0 m-5">{{> content}}</div>
+      </div>
     </div>
   </div>
 
