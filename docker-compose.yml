@@ -1,3 +1,7 @@
+# This file is meant to provide a quick way to get the project up and running
+# It will create a docker container for the database and phpmyadmin
+# Use phpmyadmin to create the database and import the sql file
+# during the import disable `Enable foreign key checks`
 version: '3'
 services:
   db:
