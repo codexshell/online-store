@@ -7,10 +7,18 @@ import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { CartModule } from './cart/cart.module';
 import { AccountModule } from './account/account.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Global()
 @Module({
-  imports: [DatabaseModule, AdminModule, AuthModule, CartModule, AccountModule],
+  imports: [
+    ConfigModule.forRoot(),
+    DatabaseModule,
+    AdminModule,
+    AuthModule,
+    CartModule,
+    AccountModule,
+  ],
   controllers: [AppController, ProductsController],
 })
 export class AppModule {}
