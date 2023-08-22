@@ -127,8 +127,17 @@ export class CartController {
   @Redirect('/cart')
   deleteOne(@Param('id', ParseIntPipe) id: number, @Req() req) {
     const productsInSession = req.session.products;
+    let productsInSessionLength = req.session.productsLength;
+
     delete productsInSession[id];
+    const itemIds = Object.keys(productsInSession);
+    productsInSessionLength = itemIds.reduce(
+      (acc, cur) => acc + productsInSession[cur],
+      0,
+    );
+
     req.session.products = productsInSession;
+    req.session.productsLength = productsInSessionLength;
   }
 
   @Get('/purchase')
