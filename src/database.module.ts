@@ -9,6 +9,7 @@ import { UsersService } from './models/users.service';
 import { Order } from './models/order.entity';
 import { OrdersService } from './models/orders.service';
 
+const synchronize = process.env.NODE_ENV !== 'production';
 @Global()
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { OrdersService } from './models/orders.service';
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
         entities: ['dist/**/*.entity{.ts,.js}'],
-        synchronize: true,
+        synchronize,
       }),
       inject: [ConfigService],
     }),
