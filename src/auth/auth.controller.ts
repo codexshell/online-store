@@ -103,6 +103,7 @@ export class AuthController {
         id: result.getId(),
         name: result.getName(),
         role: result.getRole(),
+        isAdmin: result.getRole() === 'admin',
       };
     // if user was in a redirect process, proceed with redirection,
     // else redirect to default page
