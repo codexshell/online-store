@@ -12,7 +12,10 @@ import { ConfigModule } from '@nestjs/config';
 @Global()
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: process.env.NODE_ENV !== 'production' ? '.env' : '.env.prod',
+    }),
     DatabaseModule,
     AdminModule,
     AuthModule,

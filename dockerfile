@@ -20,12 +20,10 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/views ./views
+# add to the project root your own production env file
+COPY --from=builder /app/.env.prod ./.env.prod
 
-ENV DATABASE_HOST=
-ENV DATABASE_PORT=
-ENV DATABASE_USER=
-ENV DATABASE_PASSWORD=
-ENV DATABASE_NAME=
+ENV NODE_ENV=production
 
 RUN npm install --omit=dev
 
